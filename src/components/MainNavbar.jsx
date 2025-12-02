@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link } from "react-router";
+import MoviesContext from "../store/MoviesContext";
 
 export default function MainNavBar() {
   const [searchData, setSearchData] = useState();
+  const movieCtx = useContext(MoviesContext);
 
   const changeHandler = (e) => {
     e.preventDefault();
-    setSearchData(e.target.value)
-    console.log(searchData);
+    setSearchData(e.target.value.toLowerCase());
+    const filteredMovies = [...movieCtx.moviesData.filter((item) => 
+    item.original_title.toLowerCase().includes(searchData)
+    )]
+    filteredMovies.length > 0 && movieCtx.getMoviesData(filteredMovies);
+    console.log(filteredMovies, searchData)
   }
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setSearchData(e.target.value);
+    setSearchData('')
   }
 
   return (

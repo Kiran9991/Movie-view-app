@@ -15,7 +15,6 @@ function App() {
         const res = await fetch(url);
         const data = await res.json();
         movieContext.getMoviesData(data.results);
-        console.log('worked', data)
       } catch (error) {
         console.log("Error when loading movies", error);
       }

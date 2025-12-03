@@ -4,24 +4,14 @@ import { Link } from "react-router";
 import MoviesContext from "../store/MoviesContext";
 
 export default function MainNavBar() {
-  const [searchData, setSearchData] = useState();
-  const movieCtx = useContext(MoviesContext);
+  const { searchData,
+    setSearchData,
+    filteredMoviesData
+   } = useContext(MoviesContext);
 
-  const changeHandler = (e) => {
-    e.preventDefault();
-    setSearchData(e.target.value.toLowerCase());
-    const filteredMovies = [...movieCtx.moviesData.filter((item) => 
-    item.original_title.toLowerCase().includes(searchData)
-    )]
-    filteredMovies.length > 0 && movieCtx.getMoviesData(filteredMovies);
-    console.log(filteredMovies, searchData)
-  }
+   const submitHandler = () => {
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setSearchData(e.target.value);
-    setSearchData('')
-  }
+   }
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
@@ -50,7 +40,7 @@ export default function MainNavBar() {
         className="d-flex">
           <Form.Control 
           value={searchData}
-          onChange={changeHandler}
+          onChange={(e) => setSearchData(e.target.value)}
           type="text" 
           placeholder="Enter text here..."
           className="me-2 bg-white text-black"

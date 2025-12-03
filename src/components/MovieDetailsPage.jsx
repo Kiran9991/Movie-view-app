@@ -3,14 +3,14 @@ import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import MoviesContext from "../store/MoviesContext";
 
 export default function MovieDetailsPage() {
-  const { moviesData } = useContext(MoviesContext);
+  const { moviesData, filteredMoviesData } = useContext(MoviesContext);
 
   return (
     <>
     <Container className="my-3">
       <Row xs={1} sm={2} md={3} lg={4} className="g-4" >
-        {moviesData &&
-          moviesData.map((item, idx, arr) => (
+        {filteredMoviesData && 
+        filteredMoviesData.map((item, idx, arr) => (
             <Col
             key={item.id}
             >

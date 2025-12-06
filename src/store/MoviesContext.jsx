@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import apiClient from "../services/apiClient";
 
 const MoviesContext = createContext();
 
@@ -22,14 +23,13 @@ export function MoviesContextProvider({ children }) {
   const [moviesData, setMoviesData] = useState([]);
   const [searchData, setSearchData] = useState('');
   const [filteredMoviesData, setFilteredMoviesData] = useState([]);
-  const apiKey = import.meta.env.VITE_API_KEY;
   
     useEffect(() => {
       async function getMovieDataApi() {
-        try {
-          const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
-          const res = await fetch(url);
+        try { 
+          const res = await apiClient(`discover/movie`);
           const data = await res.json();
+          console.log(data)
           setMoviesData(data.results);
           setFilteredMoviesData(data.results);
         } catch (error) {

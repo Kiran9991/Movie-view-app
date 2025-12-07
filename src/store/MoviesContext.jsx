@@ -20,31 +20,57 @@ const MoviesContext = createContext();
 // vote_count: 247
 
 export function MoviesContextProvider({ children }) {
+  const [moviesDataObj, setMoviesDataObj] = useState({});
   const [moviesData, setMoviesData] = useState([]);
   const [searchData, setSearchData] = useState('');
   const [filteredMoviesData, setFilteredMoviesData] = useState([]);
+  const [page, setPage] = useState(Number(localStorage.getItem('page')) || 1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const setNextPage = () => {
+    page < 500 && setPage(page+1);
+  }
+
+  const setPrevPage = () => {
+    setPage(page > 0 && page - 1);
+  }
+
+  const setFirstPage = () => {
+    console.log(moviesDataObj, page)
+    setPage(1);
+  }
+
+  const setLastPage = () => {
+    setPage(500);
+  }
   
     useEffect(() => {
       async function getMovieDataApi() {
+        setIsLoading(true);
         try { 
-          const res = await apiClient(`discover/movie`);
+          const res = await apiClient(`discover/movie`,page);
           const data = await res.json();
-          console.log(data)
+          console.log(data);
+          setMoviesDataObj(data);
           setMoviesData(data.results);
           setFilteredMoviesData(data.results);
+          localStorage.setItem('page', page);
         } catch (error) {
           console.log("Error when loading movies", error);
         }
+        setIsLoading(false);
       }
       getMovieDataApi();
-    }, []);
+    }, [page]);
 
     useEffect(() => {
+        setIsLoading(true);
         setFilteredMoviesData(moviesData.filter((item) => {
             const title = item.title.toLowerCase();
             const search = searchData.toLowerCase();
             return title.includes(search);
         }))
+        setIsLoading(false);
     },[searchData])
 
   const getMoviesData = (movies) => {
@@ -61,7 +87,13 @@ export function MoviesContextProvider({ children }) {
     getMoviesData, 
     addMovie,
     searchData,
-    setSearchData
+    setSearchData,
+    page,
+    setNextPage,
+    setPrevPage,
+    setFirstPage,
+    setLastPage,
+    isLoading
  };
 
   return <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>;

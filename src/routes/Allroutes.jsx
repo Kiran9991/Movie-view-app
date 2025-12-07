@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router";
-import MovieDetailsPage from "../components/MovieDetailsPage.jsx";
+import MovieList from "../components/MovieList.jsx";
 
 const Allroutes = () => {
   return (
     <div>
       <Routes>
         <Route path="/home" element={<h1>Home</h1>} />
-        <Route path="/movie" element={<MovieDetailsPage />} />
+        <Route path="/movie" element={<MovieList />} />
         <Route path="/series" element={<h1>Series</h1>} />
         <Route path="/about" element={<h1>about</h1>} />
         <Route path="/documentry" element={<h1>documentry</h1>} />

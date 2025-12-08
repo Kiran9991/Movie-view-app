@@ -1,21 +1,21 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link } from "react-router";
 import MoviesContext from "../store/MoviesContext";
 
 export default function MainNavBar() {
-  const { searchData,
-    setSearchData,
-    filteredMoviesData
+  const { searchData, setSearchData,
+    getSearchMoviesData
    } = useContext(MoviesContext);
 
-   const submitHandler = () => {
-
+   const searchInputHandler = (e) => {
+    setSearchData(e.target.value)
+    getSearchMoviesData();
    }
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
-      <Container >
+      <Container>
         <Navbar.Brand>
           <Nav.Link as={Link} to="/home">
             Home
@@ -35,17 +35,14 @@ export default function MainNavBar() {
             About
           </Nav.Link>
         </Nav>
-        <Form
-        onSubmit={submitHandler}
-        className="d-flex">
-          <Form.Control 
-          value={searchData}
-          onChange={(e) => setSearchData(e.target.value)}
-          type="text" 
-          placeholder="Enter text here..."
-          className="me-2 bg-white text-black"
+        <Form className="d-flex">
+          <Form.Control
+            value={searchData}
+            onChange={searchInputHandler}
+            type="text"
+            placeholder="Enter text here..."
+            className="me-2 bg-white text-black"
           />
-          <Button variant="success">Search</Button>
         </Form>
       </Container>
     </Navbar>

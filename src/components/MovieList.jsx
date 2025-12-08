@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Container, Row, Col, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Pagination, Stack } from "react-bootstrap";
 import MoviesContext from "../store/MoviesContext";
 import MovieCard from "./MovieCard";
 
@@ -7,6 +7,8 @@ export default function MovieList() {
   const {
     filteredMoviesData,
     page,
+    pageLimit,
+    totalResults,
     setNextPage,
     setPrevPage,
     setFirstPage,
@@ -16,17 +18,23 @@ export default function MovieList() {
   return (
     <>
       <Container className="my-3">
-        <Row className="justify-content-center mt-3">
-          <Col xs="auto">
-            <Pagination>
+          <Stack direction="horizontal" gap={3} >
+            <Pagination className="p-2 ms-auto">
               <Pagination.First onClick={() => setFirstPage()} />
               <Pagination.Prev onClick={() => setPrevPage()} />
               <Pagination.Item active>{page}</Pagination.Item>
               <Pagination.Next onClick={() => setNextPage()} />
               <Pagination.Last onClick={() => setLastPage()} />
             </Pagination>
-          </Col>
-        </Row>
+          
+            <div>
+              Total Pages:- {pageLimit}
+            </div>
+            <div>
+              Total Results:- {totalResults}
+            </div>
+           
+        </Stack>
 
         <Row xs={1} sm={2} md={3} lg={4} className="g-4">
           {filteredMoviesData &&

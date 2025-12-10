@@ -10,6 +10,8 @@ export function MoviesContextProvider({ children }) {
   const [pageLimit, setPageLimit] = useState(500);
   const [totalResults, setTotalResults] = useState(10000);
   const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [modalObj, setModalObj] = useState({});
 
   const setNextPage = () => {
     page < pageLimit && setPage(page + 1);
@@ -35,7 +37,7 @@ export function MoviesContextProvider({ children }) {
       data.total_pages <= 500 && setPageLimit(data.total_pages);
       setTotalResults(data.total_results);
       setFilteredMoviesData(data.results);
-      console.log("Searched data ->",searchData, data);
+    //   console.log("Searched data ->",searchData, data);
       localStorage.setItem("page", page);
     } catch (error) {
       console.log(`Error: Not getting Data`, error);
@@ -48,7 +50,7 @@ export function MoviesContextProvider({ children }) {
     try {
       const res = await apiClient(`discover/movie`, '', page);
       const data = await res.json();
-      console.log('data from all', data);;
+    //   console.log('data from all', data);;
       setFilteredMoviesData(data.results);
       localStorage.setItem("page", page);
     } catch (error) {
@@ -58,7 +60,7 @@ export function MoviesContextProvider({ children }) {
   }
 
   useEffect(() => {
-    console.log('searchData>>', searchData)
+    // console.log('searchData>>', searchData)
     searchData.length > 0 ? getSearchMoviesData() : getMovieDataApi();
   }, [page]);
 
@@ -75,7 +77,11 @@ export function MoviesContextProvider({ children }) {
     isLoading,
     getMovieDataApi,
     getSearchMoviesData,
-    totalResults
+    totalResults,
+    show,
+    setShow,
+    modalObj,
+    setModalObj
   };
 
   return (

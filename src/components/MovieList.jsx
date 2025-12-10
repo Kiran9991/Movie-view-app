@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Container, Row, Col, Pagination, Stack } from "react-bootstrap";
+import { Container, Row, Col, Pagination, Stack, Modal, Button } from "react-bootstrap";
 import MoviesContext from "../store/MoviesContext";
 import MovieCard from "./MovieCard";
+import imageUrl from "../services/imageUrl";
 
 export default function MovieList() {
   const {
@@ -13,10 +14,35 @@ export default function MovieList() {
     setPrevPage,
     setFirstPage,
     setLastPage,
+    show,
+    setShow,
+    modalObj
   } = useContext(MoviesContext);
+
+  console.log('modalObj>>', modalObj)
 
   return (
     <>
+    <Modal show={show} onHide={()=>setShow(false)}>
+          <Modal.Header closeButton>
+            {modalObj.title}
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <div>
+                <img
+                height="400px"
+                width="550px"
+                 src={imageUrl(modalObj.backdrop_path)}
+                  alt="Poster" />
+              </div>
+              <div>
+                details
+              </div>
+            </div>
+          </Modal.Body>
+          <Button>Close</Button>
+        </Modal>
       <Container className="my-3">
           <Stack direction="horizontal" gap={3} >
             <Pagination className="p-2 ms-auto">

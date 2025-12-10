@@ -20,28 +20,54 @@ export default function MovieList() {
   } = useContext(MoviesContext);
 
   console.log('modalObj>>', modalObj)
+  const date = new Date(modalObj.release_date)
+  const titleDate = `${modalObj.title} (${date.getFullYear()})`
+
+
+  const modalContent = <div>
+    <h7>Rating: {modalObj.vote_average}/10</h7><br/>
+    <h7>No. of votes: {modalObj.vote_count}</h7><br/>
+    <h7>Release date: {date.getDate()} {date.toLocaleString('en-US', { month: 'short' })} {date.getFullYear()}</h7> <br/>
+    <h7>Overview: </h7> <p>{modalObj.overview}</p>
+  </div>
 
   return (
     <>
-    <Modal show={show} onHide={()=>setShow(false)}>
+    <Modal
+    size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    show={show} onHide={()=>setShow(false)}>
           <Modal.Header closeButton>
-            {modalObj.title}
+            <h5>
+
+            {titleDate}
+            </h5>
           </Modal.Header>
           <Modal.Body>
-            <div>
-              <div>
+            <div style={{
+              display:'flex',
+              justifyItems:'space-around'
+            }}>
+              <div
+              style={{ width:'50%'}}
+              >
                 <img
-                height="400px"
-                width="550px"
+                height="100%"
+                width="100%"
                  src={imageUrl(modalObj.backdrop_path)}
                   alt="Poster" />
               </div>
-              <div>
-                details
+              <div
+              style={{ width:'50%', margin:"10px"}}
+              >
+                {modalContent}
               </div>
             </div>
           </Modal.Body>
-          <Button>Close</Button>
+          <Button
+          className="m-2 w-2/6"
+          >Close</Button>
         </Modal>
       <Container className="my-3">
           <Stack direction="horizontal" gap={3} >

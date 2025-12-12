@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import MovieList from "../components/MovieList.jsx";
+import MovieList from "../components/Movies/MovieList.jsx";
 
 const Allroutes = () => {
   return (

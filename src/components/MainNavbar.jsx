@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link } from "react-router";
 import MoviesContext from "../store/MoviesContext";
+import useMoviesList from "../hooks/useMoviesList";
 
 export default function MainNavBar() {
-  const { searchData, setSearchData,
-    getSearchMoviesData
-   } = useContext(MoviesContext);
+  const { getMoviesData } = useMoviesList();
+  const { searchData, setSearchData } = useContext(MoviesContext);
 
-   const searchInputHandler = (e) => {
-    setSearchData(e.target.value)
-    getSearchMoviesData();
-   }
+  const searchInputHandler = (e) => {
+    setSearchData(e.target.value);
+    getMoviesData("search/movie");
+  };
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">

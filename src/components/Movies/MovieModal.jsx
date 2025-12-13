@@ -1,26 +1,26 @@
 import { useContext } from "react";
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import imageUrl from "../../services/imageUrl";
 import MoviesContext from "../../store/MoviesContext";
 
 export default function MovieModal() {
-  const { modalObj, show, setShow, isLoading } = useContext(MoviesContext);
+  const { modalContent, show, setShow } = useContext(MoviesContext);
 
-  const date = new Date(modalObj.release_date);
-  const titleDate = `${modalObj.title} (${date.getFullYear()})`;
+  const title = modalContent.title ? modalContent.title : modalContent.name;
+  const date = modalContent.release_date ? new Date(modalContent.release_date) : new Date(modalContent.first_air_date);
 
-  const modalContent = (
+  const modalContentObj = (
     <div>
-      <h7>Rating: {modalObj.vote_average}/10</h7>
+      <h7>Rating: {modalContent.vote_average}/10</h7>
       <br />
-      <h7>No. of votes: {modalObj.vote_count}</h7>
+      <h7>No. of votes: {modalContent.vote_count}</h7>
       <br />
       <h7>
         Release date: {date.getDate()}{" "}
         {date.toLocaleString("en-US", { month: "short" })} {date.getFullYear()}
       </h7>{" "}
       <br />
-      <h7>Overview: </h7> <p>{modalObj.overview}</p>
+      <h7>Overview: </h7> <p>{modalContent.overview}</p>
     </div>
   );
 
@@ -33,7 +33,7 @@ export default function MovieModal() {
       onHide={() => setShow(false)}
     >
       <Modal.Header closeButton>
-        <h5>{titleDate}</h5>
+        <h5>{title}</h5>
       </Modal.Header>
       <Modal.Body>
         <div
@@ -43,14 +43,14 @@ export default function MovieModal() {
           }}
         >
           <div style={{ width: "50%" }}>
-            {!isLoading ? <img
+            <img
               height="100%"
               width="100%"
-              src={imageUrl(modalObj.backdrop_path)}
+              src={imageUrl(modalContent.backdrop_path)}
               alt="Poster"
-            /> : <Spinner/>}
+            />
           </div>
-          <div style={{ width: "50%", margin: "10px" }}>{modalContent}</div>
+          <div style={{ width: "50%", margin: "10px" }}>{modalContentObj}</div>
         </div>
       </Modal.Body>
       <Modal.Footer>

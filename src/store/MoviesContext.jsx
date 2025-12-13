@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 const MoviesContext = createContext();
 
@@ -7,7 +7,9 @@ export function MoviesContextProvider({ children }) {
   const [page, setPage] = useState(Number(localStorage.getItem("page")) || 1);
   const [pageLimit, setPageLimit] = useState(500);
   const [show, setShow] = useState(false);
-  const [modalObj, setModalObj] = useState({});
+  const [modalContent, setModalContent] = useState({});
+  const [totalResults, setTotalResults] = useState(10000);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setNextPage = () => {
     page < pageLimit && setPage(page + 1);
@@ -37,8 +39,12 @@ export function MoviesContextProvider({ children }) {
     setLastPage,
     show,
     setShow,
-    modalObj,
-    setModalObj
+    modalContent,
+    setModalContent,
+    totalResults,
+    setTotalResults,
+    isLoading,
+    setIsLoading,
   };
 
   return (

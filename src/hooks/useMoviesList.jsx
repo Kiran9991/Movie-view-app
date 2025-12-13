@@ -3,10 +3,8 @@ import apiClient from "../services/apiClient";
 import MoviesContext from "../store/MoviesContext";
 
 export default function useMoviesList() {
-  const { searchData, setPageLimit, page } = useContext(MoviesContext);
+  const { searchData, setPageLimit, page, setTotalResults, setIsLoading } = useContext(MoviesContext);
   const [moviesData, setMoviesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [totalResults, setTotalResults] = useState(10000);
 
   async function getMoviesData(url) {
     setIsLoading(true);
@@ -28,5 +26,5 @@ export default function useMoviesList() {
     getMoviesData(url);
   }, [page, searchData]);
 
-  return { moviesData, isLoading, totalResults, getMoviesData };
+  return { moviesData, getMoviesData };
 }

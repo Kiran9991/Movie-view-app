@@ -1,16 +1,20 @@
 import { useContext } from "react";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import MoviesContext from "../store/MoviesContext";
 import useMoviesList from "../hooks/useMoviesList";
+import useTvShowsList from "../hooks/useTvShowsList";
 
 export default function MainNavBar() {
   const { getMoviesData } = useMoviesList();
+  const { getTvShowsData } = useTvShowsList();
   const { searchData, setSearchData } = useContext(MoviesContext);
+  const { pathname } = useLocation();
 
   const searchInputHandler = (e) => {
     setSearchData(e.target.value);
-    getMoviesData("search/movie");
+    pathname === "/movie" && getMoviesData("search/movie");
+    pathname === "/tv-shows" && getTvShowsData("search/tv");
   };
 
   return (
@@ -25,8 +29,8 @@ export default function MainNavBar() {
           <Nav.Link as={Link} to="/movie">
             Movies
           </Nav.Link>
-          <Nav.Link as={Link} to="/series">
-            Series
+          <Nav.Link as={Link} to="/tv-shows">
+            Tv shows
           </Nav.Link>
           <Nav.Link as={Link} to="/documentry">
             Documentry

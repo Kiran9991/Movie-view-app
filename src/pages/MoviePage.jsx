@@ -1,6 +1,6 @@
 import useMoviesList from "../hooks/useMoviesList";
 import PaginationControl from "../components/Movies/PaginationControl";
-import { Container } from "react-bootstrap";
+import { Container, Button, Stack } from "react-bootstrap";
 import List from "../components/Movies/List";
 import MovieModal from "../components/Movies/MovieModal";
 import { useContext } from "react";
@@ -12,6 +12,16 @@ export default function MoviePage() {
 
   return (
     <Container className="my-3">
+        <Stack direction="horizontal" gap={2}>
+      <Button variant="outline-secondary">Trending</Button>
+      <Button variant="outline-secondary">Latest</Button>
+      <Button variant="outline-secondary">Top Rated</Button>
+      <Button variant="outline-secondary">Popular</Button>
+      <Button variant="outline-secondary">Upcoming</Button>
+      <Button variant="outline-secondary">Bollywood</Button>
+      <Button variant="outline-secondary">Hollywood</Button>
+
+        </Stack>
       <MovieModal />
       <PaginationControl totalResults={totalResults} />
       <List items={moviesData} isLoading={isLoading} />

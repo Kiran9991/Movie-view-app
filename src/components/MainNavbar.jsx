@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Form, Button, NavDropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router";
 import MoviesContext from "../store/MoviesContext";
 import useMoviesList from "../hooks/useMoviesList";
@@ -32,13 +32,15 @@ export default function MainNavBar() {
           <Nav.Link as={Link} to="/tv-shows">
             Tv shows
           </Nav.Link>
-          <Nav.Link as={Link} to="/documentry">
-            Documentry
-          </Nav.Link>
-          <Nav.Link as={Link} to="/about">
-            About
-          </Nav.Link>
+          <NavDropdown title="Genres" id="genresMovies">
+            <NavDropdown.Item>Action</NavDropdown.Item>
+            <NavDropdown.Item>Adventure</NavDropdown.Item>
+            <NavDropdown.Item>comedy</NavDropdown.Item>
+            <NavDropdown.Item>Romance</NavDropdown.Item>
+            <NavDropdown.Item>Thriller</NavDropdown.Item>
+          </NavDropdown>
         </Nav>
+
         <Form className="d-flex">
           <Form.Control
             value={searchData}

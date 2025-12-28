@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router";
 import MoviePage from "../pages/MoviePage";
 import TvShowPage from "../pages/TvShowPage";
+import HomePage from "../pages/HomePage";
 
 const Allroutes = () => {
   return (
     <div>
       <Routes>
-        <Route path="/home" element={<h1>Home</h1>} />
+        {/* <Route path="/home" element={<HomePage/>} /> */}
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/tv-shows" element={<TvShowPage />} />
         <Route path="/documentry" element={<h1>documentry</h1>} />

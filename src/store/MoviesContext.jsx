@@ -1,50 +1,56 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useReducer, useState } from "react";
+import useFetchData from "../hooks/useFetchData";
 
 const MoviesContext = createContext();
 
+const initialState = { page: parseInt(localStorage.getItem('page')) || 1, pageLimit: 500 };
+
+function pageReducer(state, action) {
+  switch (action.type) {
+    case "NEXT":
+      return { ...state, page: Math.min(state.pageLimit, state.page + 1) };
+
+    case "PREV":
+      return { ...state, page: Math.max(1, state.page - 1) };
+
+    case "FIRST":
+      return { ...state, page: 1 };
+
+    case "LAST":
+      return { ...state, page: 500 };
+
+    case "SETLIMIT":
+      return { ...state, page: 1, pageLimit: action.limit };
+
+    case "SETPAGE":
+      return { ...state, page: action.pageNo };
+
+    default:
+      return state;
+  }
+}
+
+
 export function MoviesContextProvider({ children }) {
   const [searchData, setSearchData] = useState("");
-  const [page, setPage] = useState(Number(localStorage.getItem("page")) || 1);
-  const [pageLimit, setPageLimit] = useState(500);
+  const [pageState, dispatch] = useReducer(pageReducer, initialState);
   const [show, setShow] = useState(false);
   const [modalContent, setModalContent] = useState({});
-  const [totalResults, setTotalResults] = useState(10000);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const setNextPage = () => {
-    page < pageLimit && setPage(page + 1);
-  };
-
-  const setPrevPage = () => {
-    page > 1 && setPage(page - 1);
-  };
-
-  const setFirstPage = () => {
-    setPage(1);
-  };
-
-  const setLastPage = () => {
-    setPage(pageLimit);
-  };
+  const MoviesData = useFetchData("discover/movie", pageState.page, searchData);
 
   const value = {
     searchData,
     setSearchData,
-    page,
-    pageLimit,
-    setPageLimit,
-    setNextPage,
-    setPrevPage,
-    setFirstPage,
-    setLastPage,
+    pageState,
+    dispatch,
     show,
     setShow,
     modalContent,
     setModalContent,
-    totalResults,
-    setTotalResults,
-    isLoading,
-    setIsLoading,
+    moviesData: MoviesData.data.results,
+    moviesDataApi: MoviesData.getDataFromApi,
+    totalResults: MoviesData.data.total_results,
+    isLoading: MoviesData.isLoading,
   };
 
   return (

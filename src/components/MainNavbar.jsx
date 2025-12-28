@@ -2,19 +2,12 @@ import { useContext } from "react";
 import { Navbar, Container, Nav, Form, Button, NavDropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router";
 import MoviesContext from "../store/MoviesContext";
-import useMoviesList from "../hooks/useMoviesList";
-import useTvShowsList from "../hooks/useTvShowsList";
 
 export default function MainNavBar() {
-  const { getMoviesData } = useMoviesList();
-  const { getTvShowsData } = useTvShowsList();
   const { searchData, setSearchData } = useContext(MoviesContext);
-  const { pathname } = useLocation();
 
   const searchInputHandler = (e) => {
     setSearchData(e.target.value);
-    pathname === "/movie" && getMoviesData("search/movie");
-    pathname === "/tv-shows" && getTvShowsData("search/tv");
   };
 
   return (

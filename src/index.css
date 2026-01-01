@@ -5,6 +5,34 @@
   display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
+}
+
+
+/* html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 12px;
+} */
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px;        /* vertical scrollbar */
+  height: 6px;       /* horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle (thumb) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -11,7 +11,8 @@ export default function MainNavBar() {
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar bg="dark" data-bs-theme="dark"
+    >
       <Container>
         <Navbar.Brand>
           <Nav.Link as={Link} to="/home">
@@ -22,6 +23,12 @@ export default function MainNavBar() {
           <Nav.Link as={Link} to="/movie">
             Movies
           </Nav.Link>
+          <NavDropdown title="Movies" id="movies">
+            <NavDropdown.Item>Popular</NavDropdown.Item>
+            <NavDropdown.Item>Now Playing</NavDropdown.Item>
+            <NavDropdown.Item>Upcoming</NavDropdown.Item>
+            <NavDropdown.Item>Top Rated</NavDropdown.Item>
+          </NavDropdown>
           <Nav.Link as={Link} to="/tv-shows">
             Tv shows
           </Nav.Link>

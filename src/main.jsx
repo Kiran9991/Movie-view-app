@@ -5,15 +5,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
 import { MoviesContextProvider } from "./store/MoviesContext.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { TvShowsContextProvider } from "./store/TvShowsContext.jsx";
+import TvShowsContext, { TvShowsContextProvider } from "./store/TvShowsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <MoviesContextProvider>
       <TvShowsContextProvider>
-        <Router>
-          <App />
-        </Router>
+      <Router>
+        <App />
+      </Router>
       </TvShowsContextProvider>
     </MoviesContextProvider>
   </StrictMode>

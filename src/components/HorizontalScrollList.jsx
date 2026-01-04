@@ -1,22 +1,23 @@
-import React from "react";
 import imageUrl from "../services/imageUrl";
 
 export default function HorizontalScrollList({ lists }) {
+
   return (
-    <div className="bg-gray-100 h-[15rem] my-3 whitespace-nowrap overflow-x-auto scrollbar-hide">
+    <div className="bg-gray-100 my-3 flex overflow-x-auto gap-4 p-3">
       {lists &&
         lists.map((item, idx) => (
           <div
-            className=" w-[9rem] bg-blue-600 h-[80%] m-[10px] inline-block rounded-md"
+            className="min-w-40 rounded-md text-center"
             key={idx}
           >
             <img
               src={imageUrl(item.poster_path)}
               alt="image"
-              height="14rem"
-              width="100%"
-              className="rounded-lg "
+              className="rounded-lg w-full shadow-md"
             />
+            <div className="pt-2.5">
+            <p className="mb-0" >{item.title}</p>
+            </div>
           </div>
         ))}
     </div>

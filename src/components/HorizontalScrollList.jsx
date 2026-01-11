@@ -1,4 +1,4 @@
-import imageUrl from "../services/imageUrl";
+import imageUrl,{ NOT_FOUND_IMG } from "../services/imageUrl";
 
 export default function HorizontalScrollList({ lists }) {
 
@@ -11,7 +11,7 @@ export default function HorizontalScrollList({ lists }) {
             key={idx}
           >
             <img
-              src={imageUrl(item.poster_path)}
+              src={!item.poster_path ? imageUrl(item.poster_path) : NOT_FOUND_IMG}
               alt="image"
               className="rounded-lg w-full shadow-md"
             />

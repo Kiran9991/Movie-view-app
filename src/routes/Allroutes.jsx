@@ -5,15 +5,18 @@ import HomePage from "../pages/HomePage";
 
 const Allroutes = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/home" element={<HomePage/>} />
-        <Route path="/movie" element={<MoviePage />} />
-        <Route path="/tv-shows" element={<TvShowPage />} />
-        <Route path="/documentry" element={<h1>documentry</h1>} />
-        <Route path="/about" element={<h1>about</h1>} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/movie" element={<MoviePage />}>
+        <Route path="popular" element={<MoviePage />} />
+        <Route path="now_playing" element={<MoviePage />} />
+        <Route path="top_rated" element={<MoviePage />} />
+        <Route path="upcoming" element={<MoviePage />} />
+      </Route>
+      <Route path="/tv-shows" element={<TvShowPage />} />
+      <Route path="/documentry" element={<h1>documentry</h1>} />
+      <Route path="/about" element={<h1>about</h1>} />
+    </Routes>
   );
 };
 

@@ -30,13 +30,14 @@ function pageReducer(state, action) {
   }
 }
 
-
 export function MoviesContextProvider({ children }) {
   const [searchData, setSearchData] = useState("");
   const [pageState, dispatch] = useReducer(pageReducer, initialState);
   const [show, setShow] = useState(false);
   const [modalContent, setModalContent] = useState({});
   const MoviesData = useFetchData("discover/movie", pageState.page, searchData);
+  const [category, setCategory] = useState('popular');
+  const [movieFilter, setMovieFilter] = useState('');
 
   const value = {
     searchData,
@@ -51,6 +52,10 @@ export function MoviesContextProvider({ children }) {
     moviesDataApi: MoviesData.getDataFromApi,
     totalResults: MoviesData.data.total_results,
     isLoading: MoviesData.isLoading,
+    category,
+    setCategory,
+    movieFilter,
+    setMovieFilter
   };
 
   return (

@@ -7,13 +7,13 @@ import HorizontalScrollList from "../components/HorizontalScrollList";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const [timeWindow, setTimeWindow] = useState("day"); 
+  const [timeWindow, setTimeWindow] = useState("day");
   const { data, getDataApi } = useFetchData(`trending/movie/${timeWindow}`);
 
-    function setTimdWindowhandler(flag) {
-        !flag && setTimeWindow('day')
-        flag && setTimeWindow('week')
-    }
+  function setTimdWindowhandler(flag) {
+    !flag && setTimeWindow("day");
+    flag && setTimeWindow("week");
+  }
 
   return (
     <>

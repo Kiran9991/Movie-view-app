@@ -1,0 +1,96 @@
+.navContainer {
+  background-color: black;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.navLinkContainer {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  align-items: center;
+}
+
+.navLinkText {
+  text-decoration: none;
+  color: white;
+  padding: 6px 10px;
+  margin: 0px 2px;
+  white-space: nowrap;
+  border-radius: 5px;
+  border: 2px solid transparent;
+}
+
+.navLinkText:hover {
+  background-color: rgb(48, 45, 45);
+  border: 2px solid white;
+  transition: all 0.7s ease;
+}
+
+.toggle {
+  display: none;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff;
+  transition: all 0.7s ease-in-out;
+}
+
+.navSearchEngine {
+  background-color: white;
+  border-radius: 0.2rem;
+}
+
+.navSearchEngine input {
+  padding: 5px;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+
+  .navContainer{
+    justify-content: flex-end;
+  }
+
+  .toggle {
+    display: block;
+  }
+
+  .navLinkContainer {
+    background-color: black;
+    position: absolute;
+    top: 60px;
+    z-index: 11;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: fit-content;
+    transition: all 1s;
+    padding: 10px;
+  }
+
+  .navLinkText{
+    text-decoration: none;
+    color: black;
+    padding: 6px;
+    white-space: nowrap;
+    border-radius: 5px;
+    border: 2px solid black;
+    width: 100%;
+    text-align: center;
+    color: white;
+  }
+
+  .hideNavBar{
+    display: none;
+  }
+}

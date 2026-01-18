@@ -4,7 +4,6 @@ import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
 import { MoviesContextProvider } from "./store/MoviesContext.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
 import TvShowsContext, { TvShowsContextProvider } from "./store/TvShowsContext.jsx";
 
 createRoot(document.getElementById("root")).render(

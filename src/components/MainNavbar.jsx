@@ -1,88 +1,111 @@
-import { useContext } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  Button,
-  NavDropdown,
-} from "react-bootstrap";
-import { Link, useLocation } from "react-router";
-import MoviesContext from "../store/MoviesContext";
+import { useState } from "react";
+import styles from "./MainNavbar.module.css";
+import { SearchIcon, MenuIcon, XIcon, FilmIcon } from "../assets/Icons";
+import { Link, useLocation, useSearchParams, useNavigate } from "react-router";
 
-export default function MainNavBar() {
-  const { searchData, setSearchData, setCategory } = useContext(MoviesContext);
+const MainNavbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const [searchInput, setSearchInput] = useState('');
+  const [searhParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const searchInputHandler = (e) => {
-    setSearchData(e.target.value);
-  };
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Movies", href: "/movie" },
+    { name: "TV Shows", href: "/tv-shows" },
+  ];
 
-  
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/search?query=${searchInput}`)
+  }
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
-      <Container>
-        <Navbar.Brand>
-          <Nav.Link as={Link} to="/">
-            Home
-          </Nav.Link>
-        </Navbar.Brand>
-        <Nav className="me-auto">
-          <NavDropdown title="Movies" id="movies">
-            <NavDropdown.Item
-              as={Link}
-              to="/movie/popular"
-              onClick={() => setCategory("popular")}
-            >
-              Popular
-            </NavDropdown.Item>
+    <nav className={styles.navbar}>
+      <div className={styles.container}>
+        <div className={styles.navInner}>
+          {/* Brand */}
+          <div className={styles.brand}>
+            <FilmIcon className={styles.brandIcon} />
+            <span className={styles.brandText}>CINEVERSE</span>
+          </div>
 
-            <NavDropdown.Item
-              as={Link}
-              to="/movie/now_playing"
-              onClick={() => setCategory("now_playing")}
-            >
-              Now Playing
-            </NavDropdown.Item>
+          {/* Desktop */}
+          <div className={styles.desktopNav}>
+            <div className={styles.navLinks}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className={`${styles.navLink} ${
+                    pathname == link.href && styles.active
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
 
-            <NavDropdown.Item
-              as={Link}
-              to="/movie/upcoming"
-              onClick={() => setCategory("upcoming")}
-            >
-              Upcoming
-            </NavDropdown.Item>
+            <div className={styles.searchWrapper}>
+              <div className={styles.searchIconWrapper}>
+                <SearchIcon className={styles.searchIcon} />
+              </div>
+              <form onSubmit={submitHandler}>
+              <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} className={styles.searchInput} placeholder="Search..."/>
+              </form>
+            </div>
 
-            <NavDropdown.Item
-              as={Link}
-              to="/movie/top_rated"
-              onClick={() => setCategory("top_rated")}
-            >
-              Top Rated
-            </NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link as={Link} to="/tv-shows">
-            Tv shows
-          </Nav.Link>
-          <NavDropdown title="Genres" id="genresMovies">
-            <NavDropdown.Item>Action</NavDropdown.Item>
-            <NavDropdown.Item>Adventure</NavDropdown.Item>
-            <NavDropdown.Item>comedy</NavDropdown.Item>
-            <NavDropdown.Item>Romance</NavDropdown.Item>
-            <NavDropdown.Item>Thriller</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
+            <button className={styles.signInBtn}>Sign In</button>
+          </div>
 
-        <Form className="d-flex">
-          <Form.Control
-            value={searchData}
-            onChange={searchInputHandler}
-            type="text"
-            placeholder="Enter text here..."
-            className="me-2 bg-white text-black"
-          />
-        </Form>
-      </Container>
-    </Navbar>
+          {/* Mobile */}
+          <div className={styles.mobileToggle}>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={styles.menuButton}
+            >
+              {isMenuOpen ? (
+                <XIcon className={styles.mobileMenuIcon} />
+              ) : (
+                <MenuIcon className={styles.mobileMenuIcon} />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {isMenuOpen && (
+        <div className={styles.mobileMenu}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.href}
+              className={`${styles.mobileLink} ${
+                pathname == link.href && styles.active
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          <div className={styles.mobileSearch}>
+            <div className={styles.mobileSearchIconWrapper}>
+              <SearchIcon className={styles.searchIcon} />
+            </div>
+            <input
+              className={styles.mobileInput}
+              placeholder="Search titles..."
+            />
+          </div>
+
+          <div className={styles.mobileSignIn}>
+            <button className={styles.signInBtn}>Sign In</button>
+          </div>
+        </div>
+      )}
+    </nav>
   );
-}
+};
+
+export default MainNavbar;

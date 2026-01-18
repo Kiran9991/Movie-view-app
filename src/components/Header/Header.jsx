@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 import style from "./Header.module.css";
 
 function Navlink({ children, to }) {
@@ -12,13 +12,22 @@ function Navlink({ children, to }) {
 
 export default function Header() {
   const [show, setIsShow] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
   const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setIsShow(false);
   }, [pathname]);
 
   const toggleBtnHandler = () => setIsShow(!show);
+
+  const submitBtnHandler = (e) => {
+    e.preventDefault();
+    // alert(searchInput);
+    searchInput ? setSearchParams({ query:searchInput }) : setSearchParams({});
+    setSearchInput('')
+  }
 
   return (
     <nav className={style.navContainer}>
@@ -30,8 +39,8 @@ export default function Header() {
         <Navlink to="/sign-in">Sign in</Navlink>
       </div>
       <div className={style.navSearchEngine}>
-        <form>
-          <input type="text" placeholder="Search..." />
+        <form onSubmit={submitBtnHandler}>
+          <input value={searchInput} type="text" placeholder="Search..." onChange={(e) => setSearchInput(e.target.value)} />
         </form>
       </div>
       <div className={style.toggle} onClick={toggleBtnHandler}>

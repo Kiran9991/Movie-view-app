@@ -3,17 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
-import { MoviesContextProvider } from "./store/MoviesContext.jsx";
-import TvShowsContext, { TvShowsContextProvider } from "./store/TvShowsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MoviesContextProvider>
-      <TvShowsContextProvider>
       <Router>
         <App />
       </Router>
-      </TvShowsContextProvider>
-    </MoviesContextProvider>
   </StrictMode>
 );

@@ -1,19 +1,18 @@
-import React from 'react'
 import ListCard from '../components/ListCard'
 import useFetchData from '../hooks/useFetchData'
 import { useLocation, useSearchParams } from 'react-router'
+import MovieFilterSidebar from '../components/SideBar';
 
 export default function SearchResultPage() {
     const [searchParams, setSearchParamsn] = useSearchParams();
-    const { data } = useFetchData(`search/collection`, 1, searchParams.get('query'))
+    const { data } = useFetchData(`search/movie`, { page:1, searchInput: searchParams.get('query') })
 
-    console.warn(searchParams.get('query'));
-
-    console.log(data);
-
-  return (
+  return (  
     <>
-      <ListCard items={data.results}/>
+      <div style={{ display: 'flex'}}>
+      <MovieFilterSidebar/>
+      <ListCard items={data.results} title='Searched Results'/>
+      </div>
     </>
   )
 }

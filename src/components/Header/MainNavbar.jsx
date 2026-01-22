@@ -1,13 +1,12 @@
 import { useState } from "react";
 import styles from "./MainNavbar.module.css";
-import { SearchIcon, MenuIcon, XIcon, FilmIcon } from "../assets/Icons";
-import { Link, useLocation, useSearchParams, useNavigate } from "react-router";
+import { SearchIcon, MenuIcon, XIcon, FilmIcon } from "../../assets/Icons";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const MainNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const [searchInput, setSearchInput] = useState('');
-  const [searhParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const navLinks = [

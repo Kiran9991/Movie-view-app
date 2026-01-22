@@ -1,13 +1,10 @@
+import MainNavbar from "./components/Header/MainNavbar.jsx";
 import Allroutes from "./routes/Allroutes.jsx";
-import Header from "./components/Header/Header.jsx";
-import MainNavbar from "./components/MainNavbar.jsx";
 
 function App() {
-
   return (
     <>
-    {/* <Header/> */}
-    <MainNavbar/>
+      <MainNavbar />
       <Allroutes />
     </>
   );

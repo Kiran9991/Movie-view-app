@@ -1,8 +1,24 @@
-export default function apiClient(url, page=1, searchInput='', country='', language='') {
+export default function apiClient(url, options = {}) {
+  const {
+    page = 1,
+    searchInput = "",
+    sortBy = "popularity.desc",
+    country = "",
+    language = "",
+  } = options;
+
   const apiKey = import.meta.env.VITE_API_KEY;
-  return fetch(
-    `https://api.themoviedb.org/3/${url}?api_key=${apiKey}&include_video=true&language=en-Us&query=${searchInput}&page=${page}&sort_by=popularity.desc&with_origin_country=${country}&with_original_language=${language}`
-  );
+
+  const params = new URLSearchParams({
+    api_key: apiKey,
+    include_video: true,
+    language: "en-US",
+    query: searchInput,
+    page,
+    sort_by: sortBy,
+    with_origin_country: country,
+    with_original_language: language,
+  });
+
+  return fetch(`https://api.themoviedb.org/3/${url}?${params.toString()}`);
 }
-
-

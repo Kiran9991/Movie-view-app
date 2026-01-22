@@ -1,15 +1,12 @@
-import { useContext } from "react";
 import ListCard from "../components/ListCard";
-import PaginationControl from "../components/Movies/PaginationControl";
-import TvShowsConstext from "../store/TvShowsContext";
+import useFetchData from "../hooks/useFetchData";
 
 export default function TvShowPage() {
-  const { tvShowsData, isLoading, totalResults } = useContext(TvShowsConstext);
+  const { data } = useFetchData('discover/tv')
 
   return (
     <>
-      <ListCard items={tvShowsData}/>
-      <PaginationControl totalResults={totalResults} />
+      <ListCard items={data.results} title="Tv Shows" />
     </>
   );
 }

@@ -1,25 +1,14 @@
 import useFetchData from "../hooks/useFetchData";
-import PaginationControl from "../components/Movies/PaginationControl";
-import HorizontalScrollList from "../components/HorizontalScrollList";
 import { useEffect, useState } from "react";
 import ListCard from "../components/ListCard";
 
 export default function HomePage() {
   const [timeWindow, setTimeWindow] = useState("day");
-  const { data, getDataApi } = useFetchData(`trending/movie/${timeWindow}`);
-
-  function setTimdWindowhandler(flag) {
-    !flag && setTimeWindow("day");
-    flag && setTimeWindow("week");
-  }
+  const { data } = useFetchData(`trending/movie/${timeWindow}`, {});
 
   return (
     <>
-      <HorizontalScrollList lists={data.results} />
-      <>
-        <ListCard items={data.results}/>
-        <PaginationControl />
-      </>
+      <ListCard items={data.results} title="Trending Movies" />
     </>
   );
 }

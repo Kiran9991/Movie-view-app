@@ -32,11 +32,11 @@ const Card = ({ item }) => {
   );
 };
 
-export default function ListCard({ items }) {
+export default function ListCard({ items, title = "Now Showing" }) {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.heading}>Now Showing</h1>
+        <h1 className={styles.heading}>{title}</h1>
       </header>
 
       <div className={styles.grid}>
